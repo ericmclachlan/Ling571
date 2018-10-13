@@ -16,9 +16,10 @@
     <InterpreterArguments>
     </InterpreterArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
-    <InterpreterId>Global|ContinuumAnalytics|Anaconda36-64</InterpreterId>
+    <InterpreterId>CondaEnv|CondaEnv|Conda 3.5</InterpreterId>
     <DebugStdLib>False</DebugStdLib>
-    <CommandLineArguments>"C:\Dev\Ling571\hw3\examples\grammar_cnf.cfg" "C:\Dev\Ling571\hw3\examples\sentences.txt"</CommandLineArguments>
+    <CommandLineArguments>"C:\Dev\Ling571\hw3\examples\class_grammar.cfg" "C:\Dev\Ling571\hw3\examples\class_sentences.txt"</CommandLineArguments>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +30,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <InterpreterReference Include="CondaEnv|CondaEnv|Conda 3.5" />
     <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda36-64" />
   </ItemGroup>
   <ItemGroup>
