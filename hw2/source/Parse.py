@@ -22,15 +22,18 @@ class Parse:
         lines = sentence_file.readlines()
         totalNoOfParses = 0
         for line in lines:
-            noOfParses = 0
+            line = line.strip()
+            if len(line) == 0:
+                continue
+            no_of_parses = 0
             tokens = nltk.word_tokenize(line)
-            print(line, end="")
+            print(line)
             for interpretation in parser.parse(tokens):
                 print(interpretation)
-                noOfParses = noOfParses + 1
-            print('Number of parses:', noOfParses)
+                no_of_parses += 1
+            print('Number of parses:', no_of_parses)
             print()
-            totalNoOfParses = totalNoOfParses + noOfParses
+            totalNoOfParses = totalNoOfParses + no_of_parses
 
         print('Average parses per sentence:', totalNoOfParses / len(lines))
 
