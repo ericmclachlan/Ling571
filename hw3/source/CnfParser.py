@@ -81,7 +81,7 @@ class CnfParser(object):
                 production_rhs = cell.Production.rhs()
                 count = len(production_rhs)
                 if count == 1:
-                    results.append("({} '{}')".format(lhs, production_rhs[0]))
+                    results.append("({} {})".format(lhs, production_rhs[0]))
                 elif count == 2:
                     assert r_i < cell.R
                     assert cell.R < c_i
