@@ -1,9 +1,20 @@
 import argparse
 import nltk
+import re
 import sys
 
-class Cell(object):
 
+class ParseSummary:
+    """This object wraps the result of a parse or even a partial parse."""
+
+    def __init__(self, text : str, probability : float):
+        self.probability = probability
+        self.text = text
+
+
+
+class Cell(object):
+    
     Production = None
     R = -1
 
@@ -28,13 +39,37 @@ class CustomSet(set):
             text += str(x)
         return text + '}'
 
-class CnfParser(object):
+class PcnfParser(object):
     """A parser that applies the grammar to find out all available interpretations of a sentence."""
 
     grammar = None
+    probability_of_production = {}
 
-    def __init__(self, grammar):
-        self.grammar = grammar
+    def __init__(self, pcfg_filename):
+        
+        start = None
+        with open(pcfg_filename, "r") as f:
+            lines = f.readlines()
+        productions = []
+        for line in lines:
+            matches = re.match("(\S+)\s*->\s*(\S+)(\s+\S+)?\s+\[([0-9.]+)\]?", line)
+            groups = matches.groups()
+            group_count = len(groups)
+            assert group_count == 4
+            lhs = nltk.Nonterminal(groups[0].strip())
+            if groups[2] is None:
+                production = nltk.Production(lhs, [ groups[1].strip('\'') ])
+            else:
+                production = nltk.Production(lhs, [ nltk.Nonterminal(groups[1].strip()), nltk.Nonterminal(groups[2].strip()) ])
+            probability = float(groups[3].strip())
+            
+            # Read the Production rule:
+            if (start is None):
+                start = lhs
+
+            productions.append(production)
+            self.probability_of_production[production] = probability
+        self.grammar = nltk.grammar.CFG(start, productions, False)
 
 
     def __is_in_here(self, nonterminal, mySet) -> bool:
@@ -64,7 +99,7 @@ class CnfParser(object):
                             and self.__is_in_here(rhs[1], table[offset][c_i]):
                             table[r_i][c_i].add(Cell(p, offset))
                 
-        self.print_table(table)
+        #self.print_table(table)
 
         # Backtrace:
         results = self.recursive_backtrace(self.grammar.start(), table, r_i=0, c_i=len(table[0]) - 1)
@@ -78,7 +113,7 @@ class CnfParser(object):
                 production_rhs = cell.Production.rhs()
                 count = len(production_rhs)
                 if count == 1:
-                    results.append("({} {})".format(lhs, production_rhs[0]))
+                    results.append(ParseSummary("({} {})".format(lhs, production_rhs[0]), self.probability_of_production[cell.Production]))
                 elif count == 2:
                     assert r_i < cell.R
                     assert cell.R < c_i
@@ -86,7 +121,7 @@ class CnfParser(object):
                     results_right = self.recursive_backtrace(production_rhs[1], table, cell.R, c_i)
                     for l in results_left:
                         for r in results_right:
-                            results.append('({} ({} {}))'.format(lhs, l, r))
+                            results.append(ParseSummary('({} {} {})'.format(lhs, l.text, r.text), self.probability_of_production[cell.Production] * l.probability * r.probability))
                 else:
                     assert False
         return results
@@ -134,9 +169,25 @@ class CnfParser(object):
         row_format = "".join(["{:>" + str(longest_col) + "}" for longest_col in longest_cols])
         for r_i in str_table:
             eprint(row_format.format(*r_i))
- 
+  
+        
+def main():
+    # Parse the command line arguments.
+    # Parse the command line arguments.
+    # If none are provided, use the SVM classifier.
+    parser = argparse.ArgumentParser(description='Code implementing PCKY')
+    parser.add_argument('input_PCFG_file', type=str, help='The name of the file holding the induced PCFG grammar to be read.')
+    parser.add_argument('test_sentence_filename', type=str, help='The name of the file holding the test sentences to be parsed.')
+    args = parser.parse_args()
+    eprint(args)
+    
+    # Load the parser using NLTK:
+    parser = PcnfParser(args.input_PCFG_file)
 
-    def parse_all_sentences(self, lines):
+    # Iterate over each of the sentences in the sentences file,
+    # writing the number of parses for each sentence:
+    with open(args.test_sentence_filename, "r") as f:
+        lines = f.readlines()
         totalNoOfParses = 0
         for line in lines:
             line = line.strip()
@@ -144,42 +195,22 @@ class CnfParser(object):
                 continue
             no_of_parses = 0
             tokens = nltk.word_tokenize(line)
-            print(line)
-            for interpretation in self.parse(tokens):
-                interpretation_as_tree = nltk.Tree.fromstring(interpretation)
-                print(interpretation_as_tree)
-                no_of_parses += 1
-            print('Number of parses: ', no_of_parses)
-            print()
+            #print(line)
+            interpretations = parser.parse(tokens)
+            max_prob = -1
+            best_interpretation = ''
+            for interpretation in interpretations:
+                if interpretation.probability > max_prob:
+                    max_prob = interpretation.probability
+                    best_interpretation = interpretation.text
+            print(best_interpretation)
+            no_of_parses += 1
             totalNoOfParses = totalNoOfParses + no_of_parses
-                    
-        eprint('Average parses per sentence:', totalNoOfParses / len(lines))
 
-def main():
-    """Calls parse with the parameters passed on the command line."""
-
-    # Input Validation:    
-    parser = argparse.ArgumentParser(description='Parses the specified sentences using the specified grammar.')
-    parser.add_argument('grammar_file_path', type=str, help='the name of the file containing the grammar.')
-    parser.add_argument('sentence_file_path', type=str, help='the name of the file containing the sentences.')
-    ns = parser.parse_args()
-
-    # Load the grammar using NLTK:
-    rules = nltk.data.load('file://' + ns.grammar_file_path, 'text')
-    grammar = nltk.CFG.fromstring(rules)
-
-    # Load the parser using NLTK:
-    parser = CnfParser(grammar)
-
-     # Iterate over each of the sentences in the sentences file,
-    # writing the number of parses for each sentence:
-    with open(ns.sentence_file_path, "r") as sentence_file:
-        lines = sentence_file.readlines()
-        parser.parse_all_sentences(lines)
-    
-    eprint('Done.')
+    #eprint('Done.')
 
 def eprint(*args, **kwargs):
+    """Print to STDERR (as opposed to STDOUT)"""
     print(*args, file=sys.stderr, **kwargs)
 
 

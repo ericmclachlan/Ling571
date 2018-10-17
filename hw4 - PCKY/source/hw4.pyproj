@@ -2,10 +2,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6ccb17a8-50c2-4866-ac99-fb2f41b880bb}</ProjectGuid>
+    <ProjectGuid>{e1571f2f-8661-453f-9784-090cd43a92aa}</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>CnfParser.py</StartupFile>
+    <StartupFile>PcnfParser.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -18,7 +18,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>CondaEnv|CondaEnv|Conda 3.5</InterpreterId>
     <DebugStdLib>False</DebugStdLib>
-    <CommandLineArguments>"C:\Dev\Ling571\hw3\examples\toy.cfg" "C:\Dev\Ling571\hw3\examples\toy_sentences.txt"</CommandLineArguments>
+    <CommandLineArguments>"C:\Dev\Ling571\hw4 - PCKY\examples\data\toy.pcfg" "C:\Dev\Ling571\hw4 - PCKY\examples\data\toy_sentences.txt"</CommandLineArguments>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -34,7 +34,10 @@
     <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda36-64" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CnfParser.py" />
+    <Compile Include="PcnfParser.py" />
+    <Compile Include="ToPcfg.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

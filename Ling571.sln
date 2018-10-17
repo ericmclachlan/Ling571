@@ -9,6 +9,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw2", "hw2\source\hw2.pypro
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw3", "hw3\source\hw3.pyproj", "{6CCB17A8-50C2-4866-AC99-FB2F41B880BB}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw4", "hw4 - PCKY\source\hw4.pyproj", "{E1571F2F-8661-453F-9784-090CD43A92AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{C54372A8-0A96-4084-82C1-D8BF8C556B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CCB17A8-50C2-4866-AC99-FB2F41B880BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6CCB17A8-50C2-4866-AC99-FB2F41B880BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1571F2F-8661-453F-9784-090CD43A92AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1571F2F-8661-453F-9784-090CD43A92AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

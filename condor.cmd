@@ -1,11 +1,18 @@
 universe        	= vanilla
-executable      	= hw3_parser.sh
+executable      	= hw4_run.sh
 getenv          	= true
 output				= condor.out
 error           	= condor.err
 log             	= condor.log
 #notification		= complete
-arguments       	= "'/dropbox/18-19/571/hw3/grammar_cnf.cfg' '/dropbox/18-19/571/hw3/sentences.txt' 'grammar_cnf_output.txt'"
+arguments       	=  "'/dropbox/18-19/571/hw4/data/parses.train' \
+						'hw4_trained.pcfg' \
+						'/dropbox/18-19/571/hw4/data/sentences.txt'  \
+						'parses_base.out' \
+						'hw4_trained.pcfg' \
+						'/dropbox/18-19/571/hw4/data/sentences.txt' \
+						'parses_base.eval'  \
+						'improved_eval'"
 transfer_executable	= false
 #request_cpus		= 8
 queue
