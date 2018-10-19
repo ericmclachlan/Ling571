@@ -10,9 +10,9 @@ arguments       	=  "'/dropbox/18-19/571/hw4/data/parses.train' \
 						'/dropbox/18-19/571/hw4/data/sentences.txt'  \
 						'parses_base.out' \
 						'hw4_trained.pcfg' \
-						'/dropbox/18-19/571/hw4/data/sentences.txt' \
+						'parses_improved.out' \
 						'parses_base.eval'  \
-						'improved_eval'"
+						'parses_improved.eval'"
 transfer_executable	= false
 #request_cpus		= 8
 queue

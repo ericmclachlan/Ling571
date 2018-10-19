@@ -3,7 +3,7 @@
 # This is the job that will be submitted to condor.
 
 hw=hw4
-exDir=~/dropbox/18-19/571/$hw/
+exDir=/dropbox/18-19/571/$hw/
 echo "Examples directory: $exDir"
 
 # -------

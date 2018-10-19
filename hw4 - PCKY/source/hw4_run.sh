@@ -4,8 +4,8 @@
 
 hw=hw4
 exDir=/dropbox/18-19/571/$hw
-toolsDir=/dropbox/18-19/571/hw4/tools
-dataDir=/dropbox/18-19/571/hw4/data
+toolsDir=/dropbox/18-19/571/$hw/tools
+dataDir=/dropbox/18-19/571/$hw/data
 echo "Examples directory: $exDir"
 
 # -------
@@ -27,10 +27,12 @@ improved_eval=$8					# parses_improved.eval	: evalb output for your improved par
 
 
 # 2. Perform PCKY Parsing:
+>&2 echo "./hw4_parser.sh $input_PCFG_file $test_sentence_filename $baseline_parse_output_filename"
 ./hw4_parser.sh $input_PCFG_file $test_sentence_filename $baseline_parse_output_filename
 
 
 # 3. Evaluating the PCKY Parser:
+>&2 echo "$toolsDir/evalb -p $toolsDir/COLLINS.prm $dataDir/parses.gold $baseline_parse_output_filename > $baseline_eval"
 $toolsDir/evalb -p $toolsDir/COLLINS.prm $dataDir/parses.gold $baseline_parse_output_filename > $baseline_eval
 
 

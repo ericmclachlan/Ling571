@@ -32,10 +32,10 @@ class ToPcfg(object):
             # Handle non-leaf nodes:
             left = self.__count_productions_recursively(node[0])
             right = self.__count_productions_recursively(node[1])
-            production =  nltk.Production(nltk.Nonterminal(label), { nltk.Nonterminal(left.lhs()), nltk.Nonterminal(right.lhs())})
+            production =  nltk.Production(nltk.Nonterminal(label), [ nltk.Nonterminal(left.lhs()), nltk.Nonterminal(right.lhs()) ])
         else:
             # Handle leaf node.
-            production =  nltk.Production(nltk.Nonterminal(label), { node[0] })
+            production =  nltk.Production(nltk.Nonterminal(label), [ node[0] ])
 
         # Update our count of this particular productions.
         if (production not in self.production_count):

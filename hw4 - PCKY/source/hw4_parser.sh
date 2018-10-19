@@ -3,7 +3,7 @@
 # Code implementing PCKY.
 
 hw=hw4
-exDir=~/dropbox/18-19/571/$hw/
+exDir=/dropbox/18-19/571/$hw/
 echo "Examples directory: $exDir"
 
 # -------
