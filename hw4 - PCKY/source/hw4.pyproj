@@ -5,7 +5,7 @@
     <ProjectGuid>{e1571f2f-8661-453f-9784-090cd43a92aa}</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>ToPcfg.py</StartupFile>
+    <StartupFile>ImprovedPcnfParser.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -18,7 +18,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>CondaEnv|CondaEnv|Conda 3.5</InterpreterId>
     <DebugStdLib>False</DebugStdLib>
-    <CommandLineArguments>"C:\Dev\Ling571\hw4 - PCKY\examples\data\toy_output.txt"</CommandLineArguments>
+    <CommandLineArguments>"C:\Dev\Ling571\hw4 - PCKY\examples\data\toy.pcfg" "C:\Dev\Ling571\hw4 - PCKY\examples\data\toy_sentences.txt"</CommandLineArguments>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -34,6 +34,7 @@
     <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda36-64" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImprovedPcnfParser.py" />
     <Compile Include="PcnfParser.py" />
     <Compile Include="ToPcfg.py">
       <SubType>Code</SubType>

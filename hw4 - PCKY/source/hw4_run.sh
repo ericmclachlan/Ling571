@@ -23,20 +23,26 @@ improved_eval=$8					# parses_improved.eval	: evalb output for your improved par
 
 
 # 1. Deduce a CFG grammar based on the parses included in the $treebank_filename:
+>&2 echo "1. ./hw4_to_pcfg.sh $treebank_filename $output_PCFG_file"
 ./hw4_to_pcfg.sh $treebank_filename $output_PCFG_file
 
 
 # 2. Perform PCKY Parsing:
->&2 echo "./hw4_parser.sh $input_PCFG_file $test_sentence_filename $baseline_parse_output_filename"
+>&2 echo "2. ./hw4_parser.sh $input_PCFG_file $test_sentence_filename $baseline_parse_output_filename"
 ./hw4_parser.sh $input_PCFG_file $test_sentence_filename $baseline_parse_output_filename
 
 
 # 3. Evaluating the PCKY Parser:
->&2 echo "$toolsDir/evalb -p $toolsDir/COLLINS.prm $dataDir/parses.gold $baseline_parse_output_filename > $baseline_eval"
+>&2 echo "3. $toolsDir/evalb -p $toolsDir/COLLINS.prm $dataDir/parses.gold $baseline_parse_output_filename > $baseline_eval"
 $toolsDir/evalb -p $toolsDir/COLLINS.prm $dataDir/parses.gold $baseline_parse_output_filename > $baseline_eval
 
 
 # 4. Improve something:
-#hw4_improved_parser.sh <input_PCFG_file> <test_sentence_filename> <output_parse_filename>
-# OR
-#hw4_improved_induction.sh <treebank_filename> <output_PCFG_file>
+>&2 echo "4. ./hw4_improved_parser.sh $input_PCFG_file $test_sentence_filename $improved_parse_output_filename"
+./hw4_improved_parser.sh $input_PCFG_file $test_sentence_filename $improved_parse_output_filename
+
+
+# 5. Evaluating the improved PCKY Parser:
+>&2 echo "5. $toolsDir/evalb -p $toolsDir/COLLINS.prm $dataDir/parses.gold $improved_parse_output_filename > $improved_eval"
+$toolsDir/evalb -p $toolsDir/COLLINS.prm $dataDir/parses.gold $improved_parse_output_filename > $improved_eval
+
