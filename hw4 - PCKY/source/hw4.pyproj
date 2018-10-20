@@ -18,7 +18,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>CondaEnv|CondaEnv|Conda 3.5</InterpreterId>
     <DebugStdLib>False</DebugStdLib>
-    <CommandLineArguments>"C:\Dev\Ling571\hw4 - PCKY\examples\data\toy.pcfg" "C:\Dev\Ling571\hw4 - PCKY\examples\data\toy_sentences.txt"</CommandLineArguments>
+    <CommandLineArguments>"C:\Dev\Ling571\hw4 - PCKY\examples\data\hw4_trained.pcfg" "C:\Dev\Ling571\hw4 - PCKY\examples\data\test_sentences.txt"</CommandLineArguments>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
