@@ -1,10 +1,28 @@
 % start S
 
 # Sentence Types:
-S -> NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g] PNCT
-S -> NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g] SBAR
+S -> DECLARATION '.'
+S -> QUESTION '?'
 
-SBAR -> COMP S
+# Declarative Sentence Types
+DECLARATION	-> NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g]
+DECLARATION	-> NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g] SBAR
+
+# Interrogative Sentence Types
+QUESTION		-> YES_NO_QUESTION
+QUESTION		-> OPEN_QUESTION
+
+# Yes-No Questions:
+YES_NO_QUESTION	-> YES_NO_QUESTION_WORD NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g]
+YES_NO_QUESTION	-> YES_NO_QUESTION_WORD NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g] SBAR
+
+# Open Questions:
+OPEN_QUESTION	-> OPEN_QUESTION_WORD YES_NO_QUESTION_WORD NP[NUM=?n, GENDER=?g] VP[GENDER=?g]
+OPEN_QUESTION	-> OPEN_QUESTION_WORD YES_NO_QUESTION_WORD NP[NUM=?n, GENDER=?g] VP[GENDER=?g]
+OPEN_QUESTION	-> OPEN_QUESTION_WORD YES_NO_QUESTION_WORD NP SBAR
+
+# Subordinate Clauses:
+SBAR -> COMP DECLARATION
 
 # Noun Phrases:
 NP[NUM=?n, GENDER=?g]	-> N[NUM=?n, GENDER=?g] 
@@ -15,7 +33,7 @@ NP			-> NP PP
 # Verb Phrases:
 VP[TENSE=?t, NUM=?n, GENDER=?g]	-> IV[TENSE=?t, NUM=?n, GENDER=?g]
 VP[TENSE=?t, NUM=?n, GENDER=?g]	-> TV[TENSE=?t, NUM=?n, GENDER=?g] NP[GENDER=?g]
-VP[TENSE=?t, GENDER=?g]			-> VP[GENDER=?g] PP
+VP[GENDER=?g]			-> VP[GENDER=?g] PP
 
 # Prepositional Phrases:
 PP -> PREP NP
@@ -47,7 +65,11 @@ TV[TENSE=past]	-> 'saw' | 'was' | 'reached'
 
 PREP	-> 'for' | 'on'
 
-COMP	-> 'that'
+COMP	-> 'that' | 'think'
+
+OPEN_QUESTION_WORD	-> 'what'
+YES_NO_QUESTION_WORD[TENSE=past]	-> 'did'
+YES_NO_QUESTION_WORD[TENSE=pres]	-> 'does'
 
 PNCT -> '.' | '?'
 
