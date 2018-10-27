@@ -23,16 +23,15 @@ PP -> PREP NP
 
 # Terminals
 
-Det[NUM=sg] -> 'every' | 'this' | 'that'
-Det[NUM=pl] -> 'all' | 'these' | 'those' | 'five' | 'several'
-Det -> 'the' | 'some' 
+Det[NUM=pl] -> 'five'
+Det -> 'the'
 
 PropN[NUM=sg]					-> 'Tuesday' 
 PropN[NUM=sg, GENDER=male]		-> 'John' 
 PropN[NUM=sg, GENDER=female]	-> 'Mary'
 
-N[NUM=sg] -> 'book'           | 'dog'  | 'shelf'   | 'summit' | 'interesting'
-N[NUM=pl] ->           'cats' | 'dogs' | 'shelves' | 'summits' | 'interesting' | 'minutes'
+N[NUM=sg] -> 'book' | 'dog'  | 'shelf'   | 'summit' | 'interesting'
+N[NUM=pl] -> 'cats' | 'dogs' | 'interesting' | 'minutes'
 
 N[NUM=sg, GENDER=male] -> 'himself'
 N[NUM=sg, GENDER=female] -> 'herself'
@@ -41,7 +40,7 @@ IV[TENSE=pres,  NUM=sg]	-> 'barks' | 'knows'
 TV[TENSE=pres, NUM=sg]	-> 'sees' | 'likes'
 
 IV[TENSE=pres,  NUM=pl]	-> 'bark' | 'know'
-TV[TENSE=pres, NUM=pl]	-> 'see' | 'like' | 'put'
+TV[TENSE=pres, NUM=pl]	-> 'put'
 
 IV[TENSE=past]	-> 'thought' | 'walked' | 'reached'
 TV[TENSE=past]	-> 'saw' | 'was' | 'reached'
