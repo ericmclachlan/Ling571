@@ -1,0 +1,24 @@
+(S[] (DECLARATION[] (NP[GENDER=?g, NUM='pl'] (Det[] the) (N[NUM='pl'] dogs)) (VP_DECL[GENDER=?g, NUM='pl', TENSE='pres'] (IV[NUM='pl', TENSE='pres'] bark))) .)
+(S[] (DECLARATION[] (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] dog)) (VP_DECL[GENDER=?g, NUM='sg', TENSE='pres'] (IV[NUM='sg', TENSE='pres'] barks))) .)
+
+
+
+(S[] (DECLARATION[] (NP[GENDER=?g, NUM='pl'] (N[NUM='pl'] dogs)) (VP_DECL[GENDER=?g, NUM='pl', TENSE='pres'] (IV[NUM='pl', TENSE='pres'] bark))) .)
+
+(S[] (DECLARATION[] (NP[GENDER='male', NUM='sg'] (PropN[GENDER='male', NUM='sg'] John)) (VP_DECL[GENDER=?g, NUM=?n, TENSE='past'] (IV[TENSE='past'] thought)) (SBAR[] (COMP[] that) (DECLARATION[] (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] book)) (VP_DECL[GENDER=?g, NUM=?n, TENSE='past'] (TV[TENSE='past'] was) (NP[GENDER=?g, NUM='pl'] (N[NUM='pl'] interesting)))))) .)
+
+
+(S[] (DECLARATION[] (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (VP_DECL[GENDER=?g] (VP_DECL[GENDER=?g, NUM='pl', TENSE='pres'] (TV[NUM='pl', TENSE='pres'] put) (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] book))) (PP[] (PREP[] on) (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] shelf))))) .)
+(S[] (QUESTION[] (YES_NO_QUESTION[] (YES_NO_QUESTION_WORD[TENSE='past'] did) (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (VP_Q[GENDER=?g] (VP_Q[GENDER=?g, NUM='pl', TENSE='pres'] (TV[NUM='pl', TENSE='pres'] put) (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] book))) (PP[] (PREP[] on) (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] shelf)))))) ?)
+
+(S[] (QUESTION[] (OPEN_QUESTION[] (OPEN_QUESTION_WORD[] what) (YES_NO_QUESTION_WORD[TENSE='past'] did) (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (VP_Q[GENDER=?g] (VP_Q[GENDER=?g, NUM='pl', TENSE='pres'] (TV[NUM='pl', TENSE='pres'] put)) (PP[] (PREP[] on) (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] shelf)))))) ?)
+(S[] (QUESTION[] (OPEN_QUESTION[] (OPEN_QUESTION_WORD[] what) (YES_NO_QUESTION_WORD[TENSE='past'] did) (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (VP_Q[GENDER=?g, NUM='pl', TENSE='pres'] (TV[NUM='pl', TENSE='pres'] put)))) ?)
+(S[] (QUESTION[] (OPEN_QUESTION[] (OPEN_QUESTION_WORD[] what) (YES_NO_QUESTION_WORD[TENSE='pres'] does) (NP[GENDER='male', NUM='sg'] (PropN[GENDER='male', NUM='sg'] John)) (VP_Q[GENDER=?g, NUM='pl', TENSE='pres'] (IV[NUM='pl', TENSE='pres'] know)))) ?)
+(S[] (QUESTION[] (OPEN_QUESTION[] (OPEN_QUESTION_WORD[] what) (YES_NO_QUESTION_WORD[TENSE='pres'] does) (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (SBAR[] (COMP[] think) (DECLARATION[] (NP[GENDER='male', NUM='sg'] (PropN[GENDER='male', NUM='sg'] John)) (VP_DECL[GENDER=?g, NUM='sg', TENSE='pres'] (IV[NUM='sg', TENSE='pres'] knows)))))) ?)
+(S[] (DECLARATION[] (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (VP_DECL[GENDER='female', NUM=?n, TENSE='past'] (TV[TENSE='past'] saw) (NP[GENDER='female', NUM='sg'] (N[GENDER='female', NUM='sg'] herself)))) .)
+
+(S[] (DECLARATION[] (NP[GENDER='male', NUM='sg'] (PropN[GENDER='male', NUM='sg'] John)) (VP_DECL[GENDER='male', NUM=?n, TENSE='past'] (TV[TENSE='past'] saw) (NP[GENDER='male', NUM='sg'] (N[GENDER='male', NUM='sg'] himself)))) .)
+(S[] (DECLARATION[] (NP[GENDER='male', NUM='sg'] (PropN[GENDER='male', NUM='sg'] John)) (VP_DECL[GENDER=?g] (VP_DECL[GENDER=?g, NUM=?n, TENSE='past'] (TV[TENSE='past'] reached) (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] summit))) (PP[] (PREP[] on) (NP[GENDER=?g, NUM='sg'] (PropN[NUM='sg'] Tuesday))))) .)
+(S[] (DECLARATION[] (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (VP_DECL[GENDER=?g] (VP_DECL[GENDER=?g, NUM=?n, TENSE='past'] (TV[TENSE='past'] reached) (NP[GENDER=?g, NUM='sg'] (Det[] the) (N[NUM='sg'] summit))) (PP[] (PREP[] for) (NP[GENDER=?g, NUM='pl'] (Det[NUM='pl'] five) (N[NUM='pl'] minutes))))) .)
+(S[] (DECLARATION[] (NP[GENDER='male', NUM='sg'] (PropN[GENDER='male', NUM='sg'] John)) (VP_DECL[GENDER=?g] (VP_DECL[GENDER=?g, NUM=?n, TENSE='past'] (IV[TENSE='past'] walked)) (PP[] (PREP[] on) (NP[GENDER=?g, NUM='sg'] (PropN[NUM='sg'] Tuesday))))) .)
+(S[] (DECLARATION[] (NP[GENDER='female', NUM='sg'] (PropN[GENDER='female', NUM='sg'] Mary)) (VP_DECL[GENDER=?g] (VP_DECL[GENDER=?g, NUM=?n, TENSE='past'] (IV[TENSE='past'] walked)) (PP[] (PREP[] for) (NP[GENDER=?g, NUM='pl'] (Det[NUM='pl'] five) (N[NUM='pl'] minutes))))) .)

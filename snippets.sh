@@ -3,7 +3,7 @@ Visual Studio Debugging Parameters
 
 "C:\Dev\Ling571\hw5 - Feature-Based Grammars\examples\example_grammar.fcfg" "C:\Dev\Ling571\hw5 - Feature-Based Grammars\examples\example_sentences.txt"
 "C:\Dev\Ling571\hw5 - Feature-Based Grammars\source\hw5_feature_grammar.fcfg" "C:\Dev\Ling571\hw5 - Feature-Based Grammars\examples\sentences.txt"
-
+"C:\Dev\Ling571\hw5 - Feature-Based Grammars\source\hw5_feature_grammar.fcfg" "C:\Dev\Ling571\hw5 - Feature-Based Grammars\source\sentences_key.txt"
 
 Copying Files
 -------------
