@@ -1,0 +1,54 @@
+% start S
+
+# Sentence Types:
+S -> NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g] PNCT
+S -> NP[NUM=?n, GENDER=?g] VP[NUM=?n, GENDER=?g] SBAR
+
+SBAR -> COMP S
+
+# Noun Phrases:
+NP[NUM=?n, GENDER=?g]	-> N[NUM=?n, GENDER=?g] 
+NP[NUM=?n, GENDER=?g]	-> PropN[NUM=?n, GENDER=?g] 
+NP[NUM=?n, GENDER=?g]	-> Det[NUM=?n] N[NUM=?n, GENDER=?g]
+NP			-> NP PP
+
+# Verb Phrases:
+VP[TENSE=?t, NUM=?n, GENDER=?g]	-> IV[TENSE=?t, NUM=?n, GENDER=?g]
+VP[TENSE=?t, NUM=?n, GENDER=?g]	-> TV[TENSE=?t, NUM=?n, GENDER=?g] NP[GENDER=?g]
+VP[TENSE=?t, GENDER=?g]			-> VP[GENDER=?g] PP
+
+# Prepositional Phrases:
+PP -> PREP NP
+
+
+# Terminals
+
+Det[NUM=sg] -> 'every' | 'this' | 'that'
+Det[NUM=pl] -> 'all' | 'these' | 'those' | 'five' | 'several'
+Det -> 'the' | 'some' 
+
+PropN[NUM=sg]					-> 'Tuesday' 
+PropN[NUM=sg, GENDER=male]		-> 'John' 
+PropN[NUM=sg, GENDER=female]	-> 'Mary'
+
+N[NUM=sg] -> 'book'           | 'dog'  | 'shelf'   | 'summit' | 'interesting'
+N[NUM=pl] ->           'cats' | 'dogs' | 'shelves' | 'summits' | 'interesting' | 'minutes'
+
+N[NUM=sg, GENDER=male] -> 'himself'
+N[NUM=sg, GENDER=female] -> 'herself'
+
+IV[TENSE=pres,  NUM=sg]	-> 'barks' | 'knows'
+TV[TENSE=pres, NUM=sg]	-> 'sees' | 'likes'
+
+IV[TENSE=pres,  NUM=pl]	-> 'bark' | 'know'
+TV[TENSE=pres, NUM=pl]	-> 'see' | 'like' | 'put'
+
+IV[TENSE=past]	-> 'thought' | 'walked' | 'reached'
+TV[TENSE=past]	-> 'saw' | 'was' | 'reached'
+
+PREP	-> 'for' | 'on'
+
+COMP	-> 'that'
+
+PNCT -> '.' | '?'
+
