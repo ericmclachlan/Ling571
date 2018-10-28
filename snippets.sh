@@ -1,9 +1,7 @@
 Visual Studio Debugging Parameters
 ----------------------------------
 
-"C:\Dev\Ling571\hw5 - Feature-Based Grammars\examples\example_grammar.fcfg" "C:\Dev\Ling571\hw5 - Feature-Based Grammars\examples\example_sentences.txt"
-"C:\Dev\Ling571\hw5 - Feature-Based Grammars\source\hw5_feature_grammar.fcfg" "C:\Dev\Ling571\hw5 - Feature-Based Grammars\examples\sentences.txt"
-"C:\Dev\Ling571\hw5 - Feature-Based Grammars\source\hw5_feature_grammar.fcfg" "C:\Dev\Ling571\hw5 - Feature-Based Grammars\source\sentences_key.txt"
+
 
 Copying Files
 -------------
@@ -12,7 +10,7 @@ lcd C:\Dev\Ling571
 cd /home2/ericmcl/571/hw5/
 mput -r *.sh
 mput *.cmd
-lcd "C:\Dev\Ling571\hw5 - Feature-Based Grammars\source"
+lcd "C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source"
 mput -r *.py
 mput -r *.sh
 mput -r *.fcfg
