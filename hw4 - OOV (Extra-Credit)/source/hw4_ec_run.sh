@@ -21,7 +21,7 @@ baseline_eval=$6					# parses_base.eval		: evalb output for your baseline parses
 
 
 # 1. Deduce a CFG grammar based on the parses included in the $treebank_filename:
-./hw4_topcfg_oov.sh $treebank_filename 0.1 $output_PCFG_file
+./hw4_topcfg_oov.sh $treebank_filename 0.01 $output_PCFG_file
 
 
 # 2. Perform PCKY Parsing:

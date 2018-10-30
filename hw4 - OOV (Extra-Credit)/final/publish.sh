@@ -1,10 +1,11 @@
 #!/bin/sh
 
-hw=hw4
+hw=hw4_ec
 exDir=~/dropbox/18-19/571/$hw
 >&2 echo "Examples directory: $exDir"
 
 tarFile=$hw.tar.gz
+
 
 # Removes files:
 rm -fv condor.log

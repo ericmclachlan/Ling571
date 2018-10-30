@@ -4,7 +4,7 @@ Visual Studio Debugging Parameters
 "C:\Dev\Ling571\hw4 - PCKY\examples\data\hw4_trained.pcfg" "C:\Dev\Ling571\hw4 - PCKY\examples\data\test_sentences.txt"
 "C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source\hw4_ec_trained.pcfg.improved" "C:\Dev\Ling571\hw4 - PCKY\examples\data\test_sentences.txt"
 "C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\examples\data\parses.train" 0.1
-"C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source\hw4_ec_trained.pcfg.improved" "C:\Dev\Ling571\hw4 - PCKY\examples\data\test_sentences.txt"
+"C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source\hw4_ec_trained.pcfg.improved" "C:\Dev\Ling571\hw4 - PCKY\examples\data\sentences.txt"
 
 Copying Files
 -------------

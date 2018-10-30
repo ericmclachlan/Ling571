@@ -6,12 +6,13 @@ import sys
 class ToPcfg(object):
     """Loads example sentences with POS word tags and induces a PCFG from those rules."""
     
-    production_count = {}
+    count_per_production = {}
     lhs_count = {}
     count_per_token = {}
     token_count = 0
     start_symbol = None
     hide_proportion = 0.0
+    probability_per_production = {}
 
     def __init__(self, treebank_filename : str, hide_proportion: float):
         self.hide_proportion = hide_proportion
@@ -32,43 +33,51 @@ class ToPcfg(object):
 
     def hide_some_tokens(self):
         # Sort the dictionary of tokens by the token_count:
-        sorted_tokens = sorted(self.count_per_token.items(), key=operator.itemgetter(1))
+        for production in self.count_per_production.keys():
+            if self.count_per_production[production] == 0 or self.lhs_count[production.lhs()] == 0:
+                self.probability_per_production[production] = 0
+            else:
+                self.probability_per_production[production] = self.count_per_production[production] / self.lhs_count[production.lhs()]
+        
+        sorted_productions = sorted(self.probability_per_production.items(), key=operator.itemgetter(1))
         hide_target = int(round(self.hide_proportion * self.token_count, 0))
-        words_to_substitute = {}
-        # Determine which words we should remove and add them to the words_to_substitute lookup.
+        count_per_unk_production = {}
+        # Look for the least probable productions and "delete" them by reducing their count to 0.
+        # Instead, the weight is transferred to an corresponding <UNK> production, 
+        # which may pool over several productions that share the same LHS.
         i = 0
         while hide_target > 0:
-            production = sorted_tokens[i][0]
-            count = sorted_tokens[i][1]
-            hide_target -= count
-            words_to_substitute[production] = count
-            i += 1
-        unk_production_count = {}
-        productions_scheduled_for_removal = []
-        substitute_productions = []
-        for production in self.production_count.keys():
+            production = sorted_productions[i][0]
             if len(production.rhs()) == 1:
                 # We have a terminal:
-                token = production.rhs()[0]
-                if token in words_to_substitute:
-                    lhs = production.lhs()
-                    # We need to substitute this token production with an <UNK> production.
-                    unk_production = nltk.Production(lhs, {'<UNK>'})
-                    # Decrease the counter for the number of times this productions was used.
-                    production_count = self.production_count[production]
-                    self.production_count[production] -= production_count
-                    # Instead, increase the counter for the number of times the corresponding UNK-production is used.
-                    if unk_production in unk_production_count:
-                        unk_production_count[unk_production] += production_count
-                    else:
-                        unk_production_count[unk_production] = production_count
-        for unk_production in unk_production_count.keys():
-            self.production_count[unk_production] = unk_production_count[unk_production]
-        # Validation
+                lhs = production.lhs()
+                count = int(sorted_productions[i][1] * self.lhs_count[lhs])
+                assert self.count_per_production[production] == count
+                hide_target -= count
+                # We need to substitute this token production with an <UNK> production.
+                unk_production = nltk.Production(lhs, {'<UNK>'})
+                # Transfer the weight of this production to the corresponding UNK-production:
+                self.count_per_production[production] = 0
+                self.probability_per_production[production] = 0
+                if unk_production in count_per_unk_production:
+                    count_per_unk_production[unk_production] += count
+                else:
+                    count_per_unk_production[unk_production] = count
+            i += 1
+        # We couldn't add to or remove from the production collection in the previous iteration, 
+        # so we're going to make the necessary insertions now.
+        for unk_production in count_per_unk_production.keys():
+            self.count_per_production[unk_production] = count_per_unk_production[unk_production]
+            if self.count_per_production[unk_production] == 0 or self.lhs_count[unk_production.lhs()] == 0:
+                self.probability_per_production[unk_production] = 0
+            else:
+                self.probability_per_production[unk_production] = self.count_per_production[unk_production] / self.lhs_count[unk_production.lhs()]
+        
+        # Validation: Double check that we have the same number of tokens both before and after "hiding" tokens.
         count = 0
-        for production in self.production_count.keys():
+        for production in self.count_per_production.keys():
             if len(production.rhs()) == 1:
-                count += self.production_count[production]
+                count += self.count_per_production[production]
         assert count == self.token_count
 
     def __count_productions_recursively(self, node : nltk.Tree) -> nltk.Nonterminal:
@@ -91,10 +100,10 @@ class ToPcfg(object):
             production =  nltk.Production(nltk.Nonterminal(label), [ token ])
 
         # Update our count of this particular productions.
-        if (production not in self.production_count):
-            self.production_count[production] = 1
+        if (production not in self.count_per_production):
+            self.count_per_production[production] = 1
         else:
-            self.production_count[production] += 1
+            self.count_per_production[production] += 1
         # Update our count of all productions with a particular LHS.
         lhs = production.lhs()
         if (lhs not in self.lhs_count):
@@ -107,19 +116,17 @@ class ToPcfg(object):
         """Writes the PCFG to STDOUT."""
 
         # Bling: Sort the production rules.
-        sorted_productions = sorted(self.production_count)
+        sorted_productions = sorted(self.count_per_production)
 
-        # Ew: Print productions starting with the start_symbol, first.
+        # Ew, gross: Print productions starting with the start_symbol, first.
         for production in sorted_productions:
-            lhs = production.lhs()
-            if (lhs == self.start_symbol and self.production_count[production] != 0 and self.lhs_count[lhs] != 0):
-                print(production, '[' + str(self.production_count[production] / self.lhs_count[lhs]) + ']')
+            if production.lhs() == self.start_symbol and self.probability_per_production[production] != 0:
+                print(production, '[' + str(self.probability_per_production[production]) + ']')
 
         # Print the rest of the productions rules.
         for production in sorted_productions:
-            lhs = production.lhs()
-            if (lhs != self.start_symbol and self.production_count[production] != 0 and  self.lhs_count[lhs] != 0):
-                print(production, '[' + str(self.production_count[production] / self.lhs_count[lhs]) + ']')
+            if production.lhs() != self.start_symbol and self.probability_per_production[production] != 0:
+                print(production, '[' + str(self.probability_per_production[production]) + ']')
         
 def main():
     # Parse the command line arguments.

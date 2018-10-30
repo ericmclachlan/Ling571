@@ -5,7 +5,7 @@
     <ProjectGuid>{d87bd01c-f1a3-4477-9657-fc077fb026d3}</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>ToPcfg.py</StartupFile>
+    <StartupFile>PcnfParser.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -18,7 +18,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>CondaEnv|CondaEnv|Conda 3.5</InterpreterId>
     <DebugStdLib>False</DebugStdLib>
-    <CommandLineArguments>"C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\examples\data\parses.train" 0.1</CommandLineArguments>
+    <CommandLineArguments>"C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source\hw4_ec_trained.pcfg.new_improved" "C:\Dev\Ling571\hw4 - PCKY\examples\data\sentences.txt"</CommandLineArguments>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

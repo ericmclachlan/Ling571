@@ -114,10 +114,10 @@ class PcnfParser(object):
         #self.print_table(table)
 
         # Backtrace:
-        results = self.recursive_backtrace(self.grammar.start(), table, r_i=0, c_i=len(table[0]) - 1)
+        results = self.recursive_backtrace(tokens, self.grammar.start(), table, r_i=0, c_i=len(table[0]) - 1)
         return results
 
-    def recursive_backtrace(self, lhs, table, r_i, c_i) -> []:
+    def recursive_backtrace(self, tokens, lhs, table, r_i, c_i) -> []:
         results = []
         myCustomSet = table[r_i][c_i]
         for cell in myCustomSet:
@@ -125,12 +125,12 @@ class PcnfParser(object):
                 production_rhs = cell.Production.rhs()
                 count = len(production_rhs)
                 if count == 1:
-                    results.append(ParseSummary("({} {})".format(lhs, production_rhs[0]), self.log_probability_of_production[cell.Production]))
+                    results.append(ParseSummary("({} {})".format(lhs, tokens[r_i]), self.log_probability_of_production[cell.Production]))
                 elif count == 2:
                     assert r_i < cell.R
                     assert cell.R < c_i
-                    results_left = self.recursive_backtrace(production_rhs[0], table, r_i, cell.R)
-                    results_right = self.recursive_backtrace(production_rhs[1], table, cell.R, c_i)
+                    results_left = self.recursive_backtrace(tokens, production_rhs[0], table, r_i, cell.R)
+                    results_right = self.recursive_backtrace(tokens, production_rhs[1], table, cell.R, c_i)
                     for l in results_left:
                         for r in results_right:
                                 results.append(ParseSummary('({} {} {})'.format(lhs, l.text, r.text), self.log_probability_of_production[cell.Production] + l.log_probability + r.log_probability))
