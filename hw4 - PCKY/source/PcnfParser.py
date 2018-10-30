@@ -1,4 +1,5 @@
 import argparse
+import math
 import nltk
 import re
 import sys
@@ -7,8 +8,8 @@ import sys
 class ParseSummary:
     """This object wraps the result of a parse or even a partial parse."""
 
-    def __init__(self, text : str, probability : float):
-        self.probability = probability
+    def __init__(self, text : str, log_probability : float):
+        self.log_probability = log_probability
         self.text = text
 
 
@@ -43,13 +44,16 @@ class PcnfParser(object):
     """A parser that applies the grammar to find out all available interpretations of a sentence."""
 
     grammar = None
-    probability_of_production = {}
+    log_probability_of_production = {}
+    min_log_probability = None
 
     def __init__(self, pcfg_filename):
         
         start = None
+        # Read the file:
         with open(pcfg_filename, "r") as f:
             lines = f.readlines()
+        # Parse the file's contents:
         productions = []
         for line in lines:
             matches = re.match("(\S+)\s*->\s*(\S+)(\s+\S+)?\s+\[([0-9.]+)\]?", line)
@@ -61,15 +65,19 @@ class PcnfParser(object):
                 production = nltk.Production(lhs, [ groups[1].strip('\'') ])
             else:
                 production = nltk.Production(lhs, [ nltk.Nonterminal(groups[1].strip()), nltk.Nonterminal(groups[2].strip()) ])
-            probability = float(groups[3].strip())
+            log_probability = math.log(float(groups[3].strip()))
             
             # Read the Production rule:
             if (start is None):
                 start = lhs
 
             productions.append(production)
-            self.probability_of_production[production] = probability
+            self.log_probability_of_production[production] = log_probability
+            if self.min_log_probability is None or math.fabs(log_probability) > math.fabs(self.min_log_probability):
+                self.min_log_probability = log_probability
         self.grammar = nltk.grammar.CFG(start, productions, False)
+        # Make it much less probable than the actual minimum_log_probability but still non-zero.
+        self.min_log_probability = self.min_log_probability / 2
 
 
     def __is_in_here(self, nonterminal, mySet) -> bool:
@@ -113,7 +121,7 @@ class PcnfParser(object):
                 production_rhs = cell.Production.rhs()
                 count = len(production_rhs)
                 if count == 1:
-                    results.append(ParseSummary("({} {})".format(lhs, production_rhs[0]), self.probability_of_production[cell.Production]))
+                    results.append(ParseSummary("({} {})".format(lhs, production_rhs[0]), self.log_probability_of_production[cell.Production]))
                 elif count == 2:
                     assert r_i < cell.R
                     assert cell.R < c_i
@@ -121,7 +129,7 @@ class PcnfParser(object):
                     results_right = self.recursive_backtrace(production_rhs[1], table, cell.R, c_i)
                     for l in results_left:
                         for r in results_right:
-                            results.append(ParseSummary('({} {} {})'.format(lhs, l.text, r.text), self.probability_of_production[cell.Production] * l.probability * r.probability))
+                                results.append(ParseSummary('({} {} {})'.format(lhs, l.text, r.text), self.log_probability_of_production[cell.Production] + l.log_probability + r.log_probability))
                 else:
                     assert False
         return results
@@ -197,11 +205,11 @@ def main():
             tokens = nltk.word_tokenize(line)
             #print(line)
             interpretations = parser.parse(tokens)
-            max_prob = -1
+            max_prob = None
             best_interpretation = ''
             for interpretation in interpretations:
-                if interpretation.probability > max_prob:
-                    max_prob = interpretation.probability
+                if max_prob is None or math.fabs(interpretation.log_probability) < math.fabs(max_prob):
+                    max_prob = interpretation.log_probability
                     best_interpretation = interpretation.text
             print(best_interpretation)
             no_of_parses += 1

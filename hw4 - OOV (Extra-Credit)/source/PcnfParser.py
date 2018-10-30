@@ -46,6 +46,7 @@ class PcnfParser(object):
     grammar = None
     log_probability_of_production = {}
     min_log_probability = None
+    lexicon = {}
 
     def __init__(self, pcfg_filename):
         
@@ -63,6 +64,9 @@ class PcnfParser(object):
             lhs = nltk.Nonterminal(groups[0].strip())
             if groups[2] is None:
                 production = nltk.Production(lhs, [ groups[1].strip('\'') ])
+                token = production.rhs()[0]
+                if (token not in self.lexicon):
+                    self.lexicon[token] = token
             else:
                 production = nltk.Production(lhs, [ nltk.Nonterminal(groups[1].strip()), nltk.Nonterminal(groups[2].strip()) ])
             log_probability = math.log(float(groups[3].strip()))
@@ -141,11 +145,16 @@ class PcnfParser(object):
             table.append([])
             for c_i in range(length + 1):
                 if c_i == r_i:
+                    # The tokens are displayed along this diagonal:
                     # c_i chosen arbitrary out of c_i and r_i (which are equal).
-                    table[r_i].append(tokens[c_i])
+                    if (tokens[c_i] not in self.lexicon):
+                        table[r_i].append('<UNK>')
+                    else:
+                        table[r_i].append(tokens[c_i])
                 elif c_i == i + 1:
                     this_set = CustomSet()
-                    for p in self.grammar.productions(rhs=tokens[i]):
+                    token = table[r_i][c_i - 1]
+                    for p in self.grammar.productions(rhs=token):
                         this_set.add(Cell(p, r_i))
                     table[r_i].append(this_set)
                 elif c_i > i:

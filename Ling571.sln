@@ -13,6 +13,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw4", "hw4 - PCKY\source\hw
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw5", "hw5 - Feature-Based Grammars\source\hw5.pyproj", "{7CF5ACAB-F116-4A6D-AEDB-CB5BCF85EC02}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw4_ec", "hw4 - OOV (Extra-Credit)\source\hw4_ec.pyproj", "{D87BD01C-F1A3-4477-9657-FC077FB026D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,8 @@ Global
 		{E1571F2F-8661-453F-9784-090CD43A92AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CF5ACAB-F116-4A6D-AEDB-CB5BCF85EC02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7CF5ACAB-F116-4A6D-AEDB-CB5BCF85EC02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D87BD01C-F1A3-4477-9657-FC077FB026D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D87BD01C-F1A3-4477-9657-FC077FB026D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
