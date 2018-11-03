@@ -15,6 +15,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw5", "hw5 - Feature-Based 
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw4_ec", "hw4 - OOV (Extra-Credit)\source\hw4_ec.pyproj", "{D87BD01C-F1A3-4477-9657-FC077FB026D3}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw6", "hw6 - Computational Semantics\source\hw6.pyproj", "{FBA9DC0C-92EB-46BF-BE74-0A5AF34302E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,8 @@ Global
 		{7CF5ACAB-F116-4A6D-AEDB-CB5BCF85EC02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D87BD01C-F1A3-4477-9657-FC077FB026D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D87BD01C-F1A3-4477-9657-FC077FB026D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA9DC0C-92EB-46BF-BE74-0A5AF34302E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA9DC0C-92EB-46BF-BE74-0A5AF34302E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

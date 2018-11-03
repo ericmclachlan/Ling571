@@ -1,19 +1,17 @@
 Visual Studio Debugging Parameters
 ----------------------------------
 
-"C:\Dev\Ling571\hw4 - PCKY\examples\data\hw4_trained.pcfg" "C:\Dev\Ling571\hw4 - PCKY\examples\data\test_sentences.txt"
-"C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source\hw4_ec_trained.pcfg.improved" "C:\Dev\Ling571\hw4 - PCKY\examples\data\test_sentences.txt"
-"C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\examples\data\parses.train" 0.1
-"C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source\hw4_ec_trained.pcfg.improved" "C:\Dev\Ling571\hw4 - PCKY\examples\data\sentences.txt"
+"C:\Dev\Ling571\hw6 - Computational Semantics\examples\semantics_example_grammar.fcfg" "C:\Dev\Ling571\hw6 - Computational Semantics\examples\semantics_example_sentences.txt"
+
 
 Copying Files
 -------------
 
 lcd C:\Dev\Ling571
-cd /home2/ericmcl/571/hw4_ec/
+cd /home2/ericmcl/571/hw6/
 mput -r *.sh
 mput *.cmd
-lcd "C:\Dev\Ling571\hw4 - OOV (Extra-Credit)\source"
+lcd "C:\Dev\Ling571\hw6 - Computational Semantics\source"
 mput -r *.py
 mput -r *.sh
 mput -r *.fcfg
