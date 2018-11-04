@@ -58,8 +58,9 @@ def main():
             else:
                 #output_text = any_parse.pformat(margin=float("inf"))
                 #expression = nltk.sem.Expression.fromstring(output_text)
-                output_text = str(any_parse.label()['SEM'])
-                is_correct = True
+                output_text = str(any_parse.label()['SEM'].simplify())
+                assert any_parse.label()['SEM'] == any_parse.label()['SEM']
+                is_correct = '\\' not in output_text
 
             print(output_text)
 
@@ -73,7 +74,7 @@ def main():
 
 def eprint(*args, **kwargs):
     """Print to STDERR (as opposed to STDOUT)"""
-    #print(*args, file=sys.stderr, **kwargs)
+    print(*args, file=sys.stderr, **kwargs)
     pass
 
 

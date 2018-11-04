@@ -18,7 +18,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>CondaEnv|CondaEnv|Conda 3.5</InterpreterId>
     <DebugStdLib>False</DebugStdLib>
-    <CommandLineArguments>"C:\Dev\Ling571\hw6 - Computational Semantics\examples\semantics_example_grammar.fcfg" "C:\Dev\Ling571\hw6 - Computational Semantics\examples\semantics_example_sentences.txt"</CommandLineArguments>
+    <CommandLineArguments>"C:\Dev\Ling571\hw6 - Computational Semantics\source\hw6_semantic_grammar.fcfg" "C:\Dev\Ling571\hw6 - Computational Semantics\examples\test_sentence.txt"</CommandLineArguments>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
