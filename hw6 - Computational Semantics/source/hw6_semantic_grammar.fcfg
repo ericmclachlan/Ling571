@@ -1,23 +1,5 @@
 % start S
 
-###################
-# TESTS
-###################
-
-
-#S[SEM = <?subj(?vp)>] -> NP[SEM=?subj] VP[SEM=?vp]
-#VP[SEM=?v] -> IV[SEM=?v]
-#VP[SEM=<?v(?n)>] -> TV[SEM=?v] NP[SEM=?n]
-#NP[SEM=<?det(?n)>] -> Det[SEM=?det] N[SEM=?n]
-#
-#Det[SEM=<\Q P.exists x.(Q(x) & P(x))>] -> 'a'
-#Det[SEM=<\Q P.all x.(Q(x) -> P(x))>] -> 'every'
-#N[SEM=<\x.dog(x)>] -> 'dog'
-#N[SEM=<\x.cat(x)>] -> 'cat'
-#
-#IV[SEM=<\x.exists e.(barking(e) & barker(e,x))>] -> 'barks'
-#TV[SEM=<\X y.exists e.(biting(e) & biter(e,y) & bitten(e,y))>] -> 'bites'
-
 
 ###################
 # START SYMBOL
@@ -38,8 +20,8 @@ VP[SEM=<?v(?n)>] -> TV[SEM=?v] NP[SEM=?n]
 NP[SEM=?n1] -> NNP[SEM=?n1]
 NP[SEM=<?d(?n)>] -> Det[SEM=?d] N[SEM=?n]
 
-# NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> NNP[SEM=?n1] CC N[SEM=?n2]
-# NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> Det[SEM=?d1] N[SEM=?n1] CC N[SEM=?n2]
+NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> NNP[SEM=?n1] CC N[SEM=?n2]
+NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> Det[SEM=?d1] N[SEM=?n1] CC N[SEM=?n2]
 
 
 ###################
@@ -72,6 +54,6 @@ IV[SEM=<\x.exists e.(eating(e) & eater(e,x))>] -> 'eat' | 'eats'
 IV[SEM=<\x.exists e.(drinking(e) & drinker(e,x))>] -> 'drink'
 
 # Terminals: Transitive Verbs:
-TV[SEM=<\X y.X(\x.exists e.(eating(e) & eater(e,x) & eaten(e,y)))>] -> 'eat' | 'eats'
-TV[SEM=<\X y.X(\x.exists e.(drinking(e) & drinker(e,x) & drinken(e,y)))>] -> 'drinks'
-TV[SEM=<\X y.X(\x.exists e.(writing(e) & writer(e,x) & written(e,y)))>] -> 'write' | 'writes'
+TV[SEM=<\X y.X(\x.exists e.(eating(e) & eater(e,y) & eaten(e,x)))>] -> 'eat' | 'eats'
+TV[SEM=<\X y.X(\x.exists e.(drinking(e) & drinker(e,y) & drinken(e,x)))>] -> 'drinks'
+TV[SEM=<\X y.X(\x.exists e.(writing(e) & writer(e,y) & written(e,x)))>] -> 'write' | 'writes'
