@@ -34,8 +34,12 @@
     <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda36-64" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ASimilarity.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DistSimilarity.py" />
     <Compile Include="CbowSimilarity.py" />
+    <Compile Include="hw7_pmi_exercise.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
