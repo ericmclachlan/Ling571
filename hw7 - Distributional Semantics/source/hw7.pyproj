@@ -5,7 +5,7 @@
     <ProjectGuid>{2f32316f-84f0-4e98-9d19-1a15be5d2a33}</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>CbowSimilarity.py</StartupFile>
+    <StartupFile>DistSimilarity.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -18,7 +18,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>CondaEnv|CondaEnv|Conda 3.5</InterpreterId>
     <DebugStdLib>False</DebugStdLib>
-    <CommandLineArguments>2 "C:\Dev\Ling571\hw7 - Distributional Semantics\examples\mc_similarity.txt"</CommandLineArguments>
+    <CommandLineArguments>10 "PMI" "C:\Dev\Ling571\hw7 - Distributional Semantics\examples\mc_similarity.txt"</CommandLineArguments>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -39,7 +39,7 @@
     </Compile>
     <Compile Include="DistSimilarity.py" />
     <Compile Include="CbowSimilarity.py" />
-    <Compile Include="hw7_pmi_exercise.py" />
+    <Compile Include="CollocationMatrix.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
