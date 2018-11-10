@@ -1,10 +1,8 @@
 Visual Studio Debugging Parameters
 ----------------------------------
 
-"C:\Dev\Ling571\hw7 - Distributional Semantics\examples\semantics_example_grammar.fcfg" "C:\Dev\Ling571\hw7 - Distributional Semantics\examples\semantics_example_sentences.txt"
-"C:\Dev\Ling571\hw7 - Distributional Semantics\source\hw7_semantic_grammar.fcfg" "C:\Dev\Ling571\hw7 - Distributional Semantics\examples\sentences.txt"
-"C:\Dev\Ling571\hw7 - Distributional Semantics\source\hw7_semantic_grammar.fcfg" "C:\Dev\Ling571\hw7 - Distributional Semantics\examples\sentences.txt"
-"C:\Dev\Ling571\hw7 - Distributional Semantics\source\hw7_semantic_grammar.fcfg" "C:\Dev\Ling571\hw7 - Distributional Semantics\examples\test_sentence.txt"
+
+CBOW:	2 "C:\Dev\Ling571\hw7 - Distributional Semantics\examples\mc_similarity.txt"
 
 Copying Files
 -------------

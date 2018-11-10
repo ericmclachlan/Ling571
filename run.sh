@@ -29,8 +29,11 @@ done
 # Generate CBOW Files:
 
 window[0]=2
+window[1]=10
+window[2]=50
+window[3]=100
 
-for i in 0 ; do
+for i in 0 1 2 3 ; do
 
 	./hw7_cbow_similarity.sh "${window[$i]}" $judgement_file "hw7_sim_${window[$i]}_CBOW_output.txt"
 

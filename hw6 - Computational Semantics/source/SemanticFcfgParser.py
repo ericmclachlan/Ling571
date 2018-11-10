@@ -59,7 +59,6 @@ def main():
                 #output_text = any_parse.pformat(margin=float("inf"))
                 #expression = nltk.sem.Expression.fromstring(output_text)
                 output_text = str(any_parse.label()['SEM'].simplify())
-                assert any_parse.label()['SEM'] == any_parse.label()['SEM']
                 is_correct = '\\' not in output_text
 
             print(output_text)

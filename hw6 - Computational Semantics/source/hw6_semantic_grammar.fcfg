@@ -17,11 +17,12 @@ VP[SEM=?v] -> IV[SEM=?v]
 VP[SEM=<?v(?n)>] -> TV[SEM=?v] NP[SEM=?n]
 
 # Phrases: Nouns:
-NP[SEM=?n1] -> NNP[SEM=?n1]
+NP[SEM=?n] -> NNP[SEM=?n]
 NP[SEM=<?d(?n)>] -> Det[SEM=?d] N[SEM=?n]
 
-NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> NNP[SEM=?n1] CC N[SEM=?n2]
-NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> Det[SEM=?d1] N[SEM=?n1] CC N[SEM=?n2]
+NNP[SEM=<?n1(?n2(?cc))>] -> NNP[SEM=?n1] CC[SEM=?cc] NNP[SEM=?n2]
+# NP_CC[SEM=<\Q p.Q(q | p)>] -> NNP[SEM=?n1] CC NNP[SEM=?n2]
+# NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> Det[SEM=?d1] N[SEM=?n1] CC N[SEM=?n2]
 
 
 ###################
@@ -30,10 +31,11 @@ NP[SEM=<?d1(?n1) | ?d1(?n2)>] -> Det[SEM=?d1] N[SEM=?n1] CC N[SEM=?n2]
 
 # Terminals: Determiners:
 Det[SEM=<\Q P.exists x.(Q(x) & P(x))>] -> 'a' | 'an'
+Det[SEM=<\Q P.all x.(Q(x) -> -P(x))>] -> 'no'
 Det[SEM=<\Q P.all x.(Q(x) -> P(x))>] -> 'every' | 'all'
 
 # Terminals: Conjunctions:
-CC -> 'or'
+CC[SEM=<\Q P.(P | Q)>] -> 'or'
 
 # Terminals: Proper Nouns:
 NNP[SEM=<\P.P(John)>] -> 'John'
@@ -50,8 +52,8 @@ N[SEM=<\x.student(x)>] -> 'student'
 N[SEM=<\x.students(x)>] -> 'students'
 
 # Terminals: Intransitive Verbs:
-IV[SEM=<\x.exists e.(eating(e) & eater(e,x))>] -> 'eat' | 'eats'
-IV[SEM=<\x.exists e.(drinking(e) & drinker(e,x))>] -> 'drink'
+IV[SEM=<\y.exists e.(eating(e) & eater(e,y))>] -> 'eat' | 'eats'
+IV[SEM=<\y.exists e.(drinking(e) & drinker(e,y))>] -> 'drink'
 
 # Terminals: Transitive Verbs:
 TV[SEM=<\X y.X(\x.exists e.(eating(e) & eater(e,y) & eaten(e,x)))>] -> 'eat' | 'eats'
