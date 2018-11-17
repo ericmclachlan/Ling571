@@ -1,6 +1,6 @@
 #!/bin/sh
 
-hw=hw7
+hw=hw8
 exDir=~/dropbox/18-19/571/$hw
 >&2 echo "Examples directory: $exDir"
 
