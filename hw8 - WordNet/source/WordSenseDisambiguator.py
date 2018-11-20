@@ -1,13 +1,18 @@
-import argparse
-import nltk
-import sys
+"""
+Hw8: Word-sense Disambiguation
+"""
 
+import argparse
+import math
+from typing import List
+import sys
+import nltk
 from nltk.corpus import wordnet
 from nltk.corpus.reader.wordnet import information_content
 from scipy.stats.stats import spearmanr
 
 
-class WordSenseDisambiguator(object):
+class WordSenseDisambiguator():
     """Computes similarities and correlations over word pairs."""
 
     model = None
@@ -22,95 +27,172 @@ class WordSenseDisambiguator(object):
 
 
     def run(self, wsd_test_filename: str, judgment_filename: str):
+        """Runs this command."""
+
+        self.__process_word_sense_disambiguation(wsd_test_filename)
+        self.__process_human_judgement(judgment_filename)
+
+        eprint('Done.')
+
+    
+    def wsim(self, left_synsets, right_synsets):
+        """Calculates the highest information and the most_informative_subsumer (c)."""
+        i = 0.0    # Information
+        most_informative_left = None
+        most_informative_right = None
+        milcs = None
+        for left_synset in left_synsets:
+            for right_synset in right_synsets:
+                (information, lcs) = self.sim(left_synset, right_synset)
+                if information > i:
+                    i = information
+                    most_informative_left = left_synset
+                    most_informative_right = right_synset
+                    c = lcs
+        return (i, milcs)
+
+
+    def sim(self, c1, c2):
+        """Find the most informative subsumer of these 2 concepts."""
+        hypernyms = c1.common_hypernyms(c2)
+        most_information = None
+        most_informative_hypernym = None
+        information = []
+        for hypernym in hypernyms:
+            hypernym_ic = information_content(hypernym, self.brown_ic)
+            information.append(hypernym_ic)
+            if most_information is None or hypernym_ic > most_information:
+                most_information = hypernym_ic
+                most_informative_hypernym = hypernym
+        return (most_information, most_informative_hypernym)
+
+
+
+    def __process_word_sense_disambiguation(self, wsd_test_filename):
+        """Parses and handles the word-sense disambiguation aspect of the assignment."""
         
-        eprint("Simple Tests: Starting ...")
-        eprint("--------------------------")
+        eprint('Disambiguating...')
 
-        eprint(wordnet.synsets('artifact', pos='n'))
-        eprint(wordnet.synsets('artifact', pos='n')[0].name())
+        with open(wsd_test_filename, "r") as file_stream:
+            lines = file_stream.readlines()
 
-        artifact = wordnet.synset('artifact.n.01')
-        eprint(information_content(artifact, self.brown_ic))
+        for line in lines:
+            components = line.split('	')
 
-        # Hypernyms:
-        eprint(wordnet.synsets('artifact', pos='n')[0].hypernyms())
+            word = components[0].strip()
+            probe_words = components[1].strip().split(',')
 
-        # Common hypernyms:
-        hat = wordnet.synsets('hat', pos='n')[0]
-        glove = wordnet.synsets('glove', pos='n')[0]
-        eprint(hat.common_hypernyms(glove))
+            best_left = None
+            max_support = 0.0
+
+            #(left_synset, similarity) = self.calculate_similarity(word, probe_words)
+            all_senses_of_w = wordnet.synsets(word, pos='n')
+            support = [0.0] * len(all_senses_of_w)
+            for probe_word in probe_words:
+                mi_p = 0.0
+                for sense_w_i in range(len(all_senses_of_w)):
+                    milcs = None   # Most Informative Lowest Common Subsumer
+                    mi = 0.0       # Most Information
+                    for sense_p in wordnet.synsets(probe_word, pos='n'):
+                        sense_w = all_senses_of_w[sense_w_i]
+                        # CUSTOM
+                        (i, lcs) = self.sim(sense_w, sense_p)
+                        # BUILTIN
+                        #(i, lcs) = (wordnet.res_similarity(sense_w, sense_p, self.brown_ic), self.wsim([sense_p], [sense_w]))
+                        if i > mi:
+                            mi = i
+                            milcs = lcs
+                    support[sense_w_i] += mi
+                    if mi > mi_p:
+                        mi_p = mi
+                print('({}, {}, {:.10f}) '.format(word, probe_word, mi_p), end='')
+            max_support = max(support)
+            sense_w_i = support.index(max_support)
+            sense_w = all_senses_of_w[sense_w_i]
+
+            print()
+            if max_support is None:
+                print()
+            else:
+                print(sense_w.name())
+
+        eprint('Disambiguating: Complete.')
+
+
+    def __process_human_judgement(self, judgment_filename):
+        """Parses and handles the human judgement aspect of the assignment."""
         
-        eprint("Simple Tests: Completed.")
-        eprint("--------------------------")
+        eprint('Judging ...')
 
-        # Load the reference reference material.
-        eprint('Reading judgement file...')
-        with open(judgment_filename, "r") as f:
-            lines = f.readlines()
+        with open(judgment_filename, "r") as file_stream:
+            lines = file_stream.readlines()
 
-        left_list = []
-        right_list = []
         calculated_similarity_list = []
         gold_similarity_list = []
-        eprint('Generating output...')
         for line in lines:
             components = line.split(',')
 
-            left = components[0].strip()
+            word = components[0].strip()
             right = components[1].strip()
             correlation_gold = float(components[2].strip())
 
-            left_list.append(left)
-            right_list.append(right)
             gold_similarity_list.append(correlation_gold)
+            probe_words = [ right ]
+            #(_, similarity) = self.calculate_similarity(word, probe_words)
+            
+            all_senses_of_w = wordnet.synsets(word, pos='n')
+            support = [0.0] * len(all_senses_of_w)
+            for sense_w_i in range(len(all_senses_of_w)):
+                for probe_word in probe_words:
+                    milcs = None   # Most Informative Lowest Common Subsumer
+                    mi = 0.0       # Most Information
+                    for sense_p in wordnet.synsets(probe_word, pos='n'):
+                        sense_w = all_senses_of_w[sense_w_i]
+                        # CUSTOM
+                        (i, lcs) = self.sim(sense_w, sense_p)
+                        # BUILTIN
+                        #(i, lcs) = (wordnet.res_similarity(sense_w, sense_p, self.brown_ic), self.wsim([sense_p], [sense_w]))
+                        if i > mi:
+                            mi = i
+                            milcs = lcs
+                    support[sense_w_i] += mi
+            max_support = max(support)
+            sense_w_i = support.index(max_support)
+            sense_w = all_senses_of_w[sense_w_i]
 
-            calculated_similarity = self.calculate_similarity(left, right)
-            calculated_similarity_list.append(calculated_similarity)
+            calculated_similarity_list.append(max_support)
+            print('{},{}:{}'.format(word, right, max_support))
 
-            print('{},{},{}'.format(left, right, calculated_similarity))
-
-        # Measure the Correlation:
+        # Measure the correlation between the human judgements and the calculated similarities:
         result = spearmanr(calculated_similarity_list, gold_similarity_list, nan_policy='omit')
 
-        print('correlation:' + str(result.correlation))
-        eprint('Operation Completed.')
-    
+        print('Correlation:' + str(result.correlation))
 
-    def calculate_similarity(self, left: str, right: str) -> float:
-        left_synsets = wordnet.synsets(left, pos='n')
-        #eprint(left_synsets)
-        right_synsets = wordnet.synsets(right, pos='n')
-        #eprint(right_synsets)
-        # Cheat: Test using the built-in Resnik similarity function.
-        max_similarity = None
-        for left_synset in left_synsets:
-            for right_synset in right_synsets:
-                calculated_similarity = wordnet.res_similarity(left_synset, right_synset, self.brown_ic)
-                if max_similarity is None or calculated_similarity > max_similarity:
-                    max_similarity = calculated_similarity
-        return max_similarity
+        eprint('Judgement: Complete.')
 
 
 def main():
+    """The main method."""
+
     # Parse the command line arguments.
-    parser = argparse.ArgumentParser(description='Computes similarities and correlations over word pairs.')
+    parser = argparse.ArgumentParser( \
+        description='Computes similarities and correlations over word pairs.')
     parser.add_argument('information_content_file_type', type=str, choices=['nltk', 'myic'], \
         help='Specify the source of the information content file.')
     parser.add_argument('wsd_test_filename', \
-        help='The name of the file that contains the lines of "probe-word, noun group words" pairs.')
+        help='The file containing the "probe, noun group" word-pairs.')
     parser.add_argument('judgment_filename', \
-        help='The input file holding human judgments of the pairs of words and their similarity to evaluate against.')
+        help='The file holding human judgments of the pairs of words and their similarity.')
     args = parser.parse_args()
     eprint(args)
 
     command = WordSenseDisambiguator()
     command.run(args.wsd_test_filename, args.judgment_filename)
 
-    
+
 def eprint(*args, **kwargs):
     """Print to STDERR (as opposed to STDOUT)"""
     print(*args, file=sys.stderr, **kwargs)
-    pass
 
 
 if __name__ == "__main__":
