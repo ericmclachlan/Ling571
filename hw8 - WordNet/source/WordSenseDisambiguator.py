@@ -20,9 +20,9 @@ class WordSenseDisambiguator():
 
     def __init__(self):
         # Download the wordnet library:
-        nltk.download('wordnet', quiet=True)
+        #nltk.download('wordnet', quiet=True)
         # Download the information content for the Brown corpus:
-        nltk.download('wordnet_ic', quiet=True)
+        #nltk.download('wordnet_ic', quiet=True)
         self.brown_ic = nltk.corpus.wordnet_ic.ic('ic-brown-resnik-add1.dat')
 
 
@@ -30,7 +30,7 @@ class WordSenseDisambiguator():
         """Runs this command."""
 
         self.__process_word_sense_disambiguation(wsd_test_filename)
-        self.__process_human_judgement(judgment_filename)
+        #self.__process_human_judgement(judgment_filename)
 
         eprint('Done.')
 
@@ -86,34 +86,43 @@ class WordSenseDisambiguator():
 
             #(left_synset, similarity) = self.calculate_similarity(word, probe_words)
             all_senses_of_w = wordnet.synsets(word, pos='n')
-            support = [0.0] * len(all_senses_of_w)
-            for probe_word in probe_words:
-                mi_p = 0.0
-                for sense_w_i in range(len(all_senses_of_w)):
-                    milcs = None   # Most Informative Lowest Common Subsumer
-                    mi = 0.0       # Most Information
-                    for sense_p in wordnet.synsets(probe_word, pos='n'):
+            support = []
+            for p_i in range(len(probe_words)):
+                probe_word = probe_words[p_i]
+                milcs = None   # Most Informative Lowest Common Subsumer
+                mi = 0.0       # Most Information
+                all_senses_of_p = wordnet.synsets(probe_word, pos='n')
+                for sense_p in all_senses_of_p:
+                    information = []
+                    for sense_w_i in range(len(all_senses_of_w)):
                         sense_w = all_senses_of_w[sense_w_i]
                         # CUSTOM
                         (i, lcs) = self.sim(sense_w, sense_p)
+                        information.append(i)
                         # BUILTIN
                         #(i, lcs) = (wordnet.res_similarity(sense_w, sense_p, self.brown_ic), self.wsim([sense_p], [sense_w]))
                         if i > mi:
                             mi = i
                             milcs = lcs
-                    support[sense_w_i] += mi
-                    if mi > mi_p:
-                        mi_p = mi
-                print('({}, {}, {:.10f}) '.format(word, probe_word, mi_p), end='')
-            max_support = max(support)
-            sense_w_i = support.index(max_support)
+                    assert len(information) == len(all_senses_of_w)
+                    if sum(information) != 0:
+                        norm = [abs(float(x))/sum(information) for x in information]
+                    support.append(norm)
+                print('({}, {}, {:.10f}) '.format(word, probe_word, mi), end='')
+            final = [0.0] * len(all_senses_of_w)
+            for w_i in range(len(all_senses_of_w)):
+                for s in support:
+                    final[w_i] += s[w_i]
+            max_support = max(final)
+            sense_w_i = final.index(max_support)
             sense_w = all_senses_of_w[sense_w_i]
 
             print()
             if max_support is None:
                 print()
             else:
-                print(sense_w.name())
+                #print(sense_w.name())
+                print("{}   {}   {}".format(word, sense_w.name(), sense_w._definition))
 
         eprint('Disambiguating: Complete.')
 
@@ -154,7 +163,7 @@ class WordSenseDisambiguator():
                         if i > mi:
                             mi = i
                             milcs = lcs
-                    support[sense_w_i] += mi
+                support[sense_w_i] += mi
             max_support = max(support)
             sense_w_i = support.index(max_support)
             sense_w = all_senses_of_w[sense_w_i]
@@ -191,8 +200,8 @@ def main():
 
 def eprint(*args, **kwargs):
     """Print to STDERR (as opposed to STDOUT)"""
-    print(*args, file=sys.stderr, **kwargs)
-
+    #print(*args, file=sys.stderr, **kwargs)
+    pass
 
 if __name__ == "__main__":
     main()

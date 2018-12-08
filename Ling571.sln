@@ -21,6 +21,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw7", "hw7 - Distributional
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw8", "hw8 - WordNet\source\hw8.pyproj", "{8076ED8B-2B45-44F4-ACB8-88A4D37C0DB7}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "hw9", "hw9 - Hobbs\source\hw9.pyproj", "{A6FB5AFD-E1F3-4679-8084-0E3D7265899A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,8 @@ Global
 		{2F32316F-84F0-4E98-9D19-1A15BE5D2A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8076ED8B-2B45-44F4-ACB8-88A4D37C0DB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8076ED8B-2B45-44F4-ACB8-88A4D37C0DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6FB5AFD-E1F3-4679-8084-0E3D7265899A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6FB5AFD-E1F3-4679-8084-0E3D7265899A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
