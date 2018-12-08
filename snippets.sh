@@ -13,6 +13,7 @@ mput -r *.sh
 mput *.cmd
 lcd "C:\Dev\Ling571\hw9 - Hobbs\source"
 mput -r *.py
+mput -r *.cfg
 mput -r *.sh
 chmod a+x *.sh
 lcd C:\Dev\Ling571
